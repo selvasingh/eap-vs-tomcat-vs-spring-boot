@@ -1,5 +1,3 @@
-performance.txt
-warmup.txt
 installs/*.zip
 target/*
 *.log
@@ -8,3 +6,10 @@ target/*
 .classpath
 .project
 .settings
+*.zip
+
+.idea/*
+performance-*.txt
+warmup-*.txt
+
+

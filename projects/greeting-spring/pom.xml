@@ -26,6 +26,8 @@
     <description>A Spring REST Example</description>
     <properties>
         <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
+        <iteration>I01</iteration>
+        <suffix>01</suffix>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -64,6 +66,31 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <configuration>
+
+                    <!-- Web App information -->
+                    <resourceGroup>${iteration}-${RESOURCEGROUP_NAME}</resourceGroup>
+                    <appServicePlanName>${iteration}-${WEBAPP_PLAN_NAME}-${suffix}</appServicePlanName>
+                    <appName>${iteration}-${WEBAPP_NAME}-${suffix}</appName>
+                    <region>${REGION}</region>
+                    <pricingTier>${WEBAPP_PRICING_TIER}</pricingTier>
+                    <linuxRuntime>${WEBAPP_RUNTIME}</linuxRuntime>
+
+                    <appSettings>
+                        <property>
+                            <name>JAVA_OPTS</name>
+                            <value>-Xms2048m -Xmx2048m</value>
+                        </property>
+                    </appSettings>
+
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

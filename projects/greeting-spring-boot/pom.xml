@@ -25,6 +25,8 @@
     <description>A Spring Boot REST Example</description>
     <properties>
         <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
+        <iteration>I01</iteration>
+        <suffix>01</suffix>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -57,6 +59,30 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <configuration>
+
+                    <!-- Web App information -->
+                    <resourceGroup>${RESOURCEGROUP_NAME}</resourceGroup>
+                    <appServicePlanName>${WEBAPP_PLAN_NAME}-${suffix}</appServicePlanName>
+                    <appName>${WEBAPP_NAME}-${suffix}</appName>
+                    <region>${REGION}</region>
+                    <pricingTier>${WEBAPP_PRICING_TIER}</pricingTier>
+                    <linuxRuntime>jre8</linuxRuntime>
+
+                    <appSettings>
+                        <property>
+                            <name>JAVA_OPTS</name>
+                            <value>-Dserver.port=80 -Xms2048m -Xmx2048m</value>
+                        </property>
+                    </appSettings>
+
+                </configuration>
             </plugin>
         </plugins>
     </build>

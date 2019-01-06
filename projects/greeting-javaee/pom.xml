@@ -26,6 +26,10 @@
     <packaging>war</packaging>
     <name>Greeting App Java EE</name>
     <description>Greetings application implemented in Java EE and JAX-RS</description>
+    <properties>
+        <iteration>I01</iteration>
+        <suffix>01</suffix>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -41,6 +45,22 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <configuration>
+
+                    <!-- Web App information -->
+                    <resourceGroup>${iteration}-${RESOURCEGROUP_NAME}</resourceGroup>
+                    <appServicePlanName>${iteration}-${WEBAPP_PLAN_NAME}-${suffix}</appServicePlanName>
+                    <appName>${iteration}-${WEBAPP_NAME}-${suffix}</appName>
+                    <region>${REGION}</region>
+                    <pricingTier>${WEBAPP_PRICING_TIER}</pricingTier>
+                    <linuxRuntime>wildfly 14-jre8</linuxRuntime>
+
                 </configuration>
             </plugin>
         </plugins>
